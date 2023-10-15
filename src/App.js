@@ -15,10 +15,14 @@ const App = () => {
     }, []);
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${API_URL}&s=${title}`);
-        const data = await response.json();
+        try {
+            const response = await fetch(`${API_URL}&s=${title}`);
+            const data = await response.json();
 
-        setMovies(data.Search);
+            setMovies(data.Search);
+        } catch (error) {
+            throw new Error(`Failed to fetching movies: ${error.message}`);
+        }
     };
 
     const handleKeyPress = (e) => {
